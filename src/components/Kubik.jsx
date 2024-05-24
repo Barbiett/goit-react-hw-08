@@ -6,6 +6,7 @@ export default function Kubik() {
     script.src =
       "https://unpkg.com/@splinetool/viewer@1.3.5/build/spline-viewer.js";
     script.type = "module";
+    script.async = true;
     document.body.appendChild(script);
 
     return () => {
@@ -16,6 +17,7 @@ export default function Kubik() {
   return (
     <div className="kubik">
       <spline-viewer url="https://prod.spline.design/q3JZ-541i3VYuBbM/scene.splinecode"></spline-viewer>
+      <p>Some text beside the 3D model</p>
     </div>
   );
 }

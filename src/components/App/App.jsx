@@ -1,37 +1,24 @@
-import ContactForm from "../ContactForm/ContactForm";
-import SearchBox from "../SearchBox/SearchBox";
-import ContactList from "../ContactList/ContactList";
-import Kubik from "../Kubik";
-
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchContacts } from "../../redux/contactsOps";
-import { isError, isLoading } from "../../redux/contactsSlice";
-
-import css from "./App.module.css";
-
+import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import Navigation from "../Navigation/Navigation";
+const HomePage = lazy(() => import("../../pages/HomePage"));
+const RegistrationPage = lazy(() => import("../../pages/RegistrationPage"));
+const LoginPage = lazy(() => import("../../pages/LoginPage"));
+const ContactsPage = lazy(() =>
+  import("../../pages/ContactsPage/ContactsPage")
+);
 export default function App() {
-  const dispatch = useDispatch();
-  const loading = useSelector(isLoading);
-  const error = useSelector(isError);
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
   return (
-    <div className={css.container}>
-      <div className={css.box}>
-        <div>
-          <h1 className={css.header}>Phonebook</h1>
-          <ContactForm />
-          <SearchBox />
-        </div>
-        <div>
-          <Kubik />
-        </div>
-      </div>
-      {loading && <p>Loading...</p>}
-      {error && <p>Opps! Error!{error.message}. Try reloading the page!</p>}
-      <ContactList />
+    <div>
+      <Navigation />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/register" element={<RegistrationPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/contacts" element={<ContactsPage />}></Route>
+        </Routes>
+      </Suspense>
     </div>
   );
 }
