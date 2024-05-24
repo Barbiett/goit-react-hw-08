@@ -34,10 +34,7 @@ export default function LoginForm() {
   return (
     <div>
       <h1>Hello user!</h1>
-      <Formik
-        initialValues={{ useremail: "", userpassword: "" }}
-        onSubmit={handleSubmit}
-      >
+      <Formik initialValues={{ useremail: "", userpassword: "" }}>
         <Form>
           <div>
             <label htmlFor={userEmailIdLogin}>Enter your Email.</label>
@@ -47,7 +44,9 @@ export default function LoginForm() {
           </div>
         </Form>
       </Formik>
-      <Button variant="contained">Log in.</Button>
+      <Button variant="contained" onSubmit={handleSubmit}>
+        Log in.
+      </Button>
       {error && (
         <p>
           Unfortunately, something wrong with registration. Please, try again!

@@ -28,10 +28,7 @@ export default function RegistrationForm() {
   return (
     <div>
       <h1>Hello new user!</h1>
-      <Formik
-        initialValues={{ username: "", useremail: "", usernumber: "" }}
-        onSubmit={handleSubmit}
-      >
+      <Formik initialValues={{ username: "", useremail: "", usernumber: "" }}>
         <Form>
           <div>
             <label htmlFor={usernameIdRegistration}>Enter your username.</label>
@@ -47,7 +44,9 @@ export default function RegistrationForm() {
           </div>
         </Form>
       </Formik>
-      <Button variant="contained">Register.</Button>
+      <Button variant="contained" onSubmit={handleSubmit}>
+        Register.
+      </Button>
     </div>
   );
 }

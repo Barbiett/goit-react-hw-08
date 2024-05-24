@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Navigation from "../Navigation/Navigation";
+import { useDispatch } from "react-redux";
+import { fetchContacts } from "../../redux/contacts/operationsContacts";
 const HomePage = lazy(() => import("../../pages/HomePage"));
 const RegistrationPage = lazy(() => import("../../pages/RegistrationPage"));
 const LoginPage = lazy(() => import("../../pages/LoginPage"));
@@ -8,6 +10,10 @@ const ContactsPage = lazy(() =>
   import("../../pages/ContactsPage/ContactsPage")
 );
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
   return (
     <div>
       <Navigation />
