@@ -1,52 +1,62 @@
-import { Formik, Form, Field } from "formik";
-import { useId } from "react";
-import Button from "@mui/material/Button";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+// import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/auth/operationsAuth";
-// import { selectIsError } from "../../redux/auth/selectorsAuth";
-// import { selectIsLoading } from "../../redux/auth/selectorsAuth";
-import { useDispatch } from "react-redux";
-export default function RegistrationForm() {
-  const usernameIdRegistration = useId();
-  const useremailIdRegistration = useId();
-  const usernumberIdRegistration = useId();
+import { selectIsError } from "../../redux/auth/selectorsAuth";
+
+export default function RegisterForm() {
   const dispatch = useDispatch();
+  const error = useSelector(selectIsError);
 
-  const handleSubmit = (e) => {
-    const form = e.target;
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+  };
 
-    const credentials = {
-      name: form.elements.name.value,
-      email: form.elements.email.value,
-      password: form.elements.password.value,
-    };
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Username is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
 
-    dispatch(registerUser(credentials));
-
-    form.reset();
+  const handleSubmit = (values, { resetForm }) => {
+    dispatch(registerUser(values));
+    resetForm();
   };
 
   return (
-    <div>
-      <h1>Hello new user!</h1>
-      <Formik initialValues={{ username: "", useremail: "", usernumber: "" }}>
-        <Form>
-          <div>
-            <label htmlFor={usernameIdRegistration}>Enter your username.</label>
-            <Field name="username" id={usernameIdRegistration} />
+    <>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form autoComplete="off">
+          <label htmlFor="name">Username</label>
+          <Field type="text" id="name" name="name" />
+          <ErrorMessage name="name" component="div" />
 
-            <label htmlFor={useremailIdRegistration}>Enter your Email.</label>
-            <Field name="useremail" id={useremailIdRegistration} />
+          <label htmlFor="email">Email</label>
+          <Field type="email" id="email" name="email" />
+          <ErrorMessage name="email" component="div" />
 
-            <label htmlFor={usernumberIdRegistration}>
-              Enter your password.
-            </label>
-            <Field name="usernumber" id={usernumberIdRegistration} />
-          </div>
+          <label htmlFor="password">Password</label>
+          <Field type="password" id="password" name="password" />
+          <ErrorMessage name="password" component="div" />
+          <button type="submit">Register</button>
         </Form>
       </Formik>
-      <Button variant="contained" onSubmit={handleSubmit}>
-        Register.
-      </Button>
-    </div>
+      {/* <Button variant="contained">Register</Button> */}
+      {error && (
+        <p>
+          Unfortunately, something went wrong within registration process.
+          Please, try again!
+        </p>
+      )}
+    </>
   );
 }
