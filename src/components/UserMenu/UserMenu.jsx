@@ -4,7 +4,7 @@ import { selectUser } from "../../redux/auth/selectorsAuth";
 import Button from "@mui/material/Button";
 export default function UserMenu() {
   const dispatch = useDispatch();
-  const { user } = useSelector(selectUser);
+  const user = useSelector(selectUser);
 
   return (
     <div>

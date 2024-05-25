@@ -1,57 +1,54 @@
-import { Formik, Form, Field } from "formik";
-import { useId } from "react";
-import toast from "react-hot-toast";
-import Button from "@mui/material/Button";
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-
 import { authorizationUser } from "../../redux/auth/operationsAuth";
 import { selectIsError } from "../../redux/auth/selectorsAuth";
+
 export default function LoginForm() {
-  const error = useSelector(selectIsError);
   const dispatch = useDispatch();
-  const userEmailIdLogin = useId();
-  const userPasswordIdLogin = useId();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  const error = useSelector(selectIsError);
 
-    const credentials = {
-      email: form.elements.email.value,
-      password: form.elements.password.value,
-    };
-
-    dispatch(authorizationUser(credentials))
-      .unwrap()
-      .then()
-      .catch(() => {
-        toast("Login error! Try again!");
-      });
-
-    form.reset();
+  const initialValues = {
+    email: "",
+    password: "",
   };
 
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
+
+  const handleSubmit = (values, { resetForm }) => {
+    dispatch(authorizationUser(values));
+    resetForm();
+  };
   return (
-    <div>
-      <h1>Hello user!</h1>
-      <Formik initialValues={{ useremail: "", userpassword: "" }}>
+    <>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
         <Form>
-          <div>
-            <label htmlFor={userEmailIdLogin}>Enter your Email.</label>
-            <Field name="useremail" id={userEmailIdLogin}></Field>
-            <label htmlFor={userPasswordIdLogin}>Enter your password.</label>
-            <Field name="userpassword" id={userPasswordIdLogin}></Field>
-          </div>
+          <label htmlFor="email">Email</label>
+          <Field type="email" id="email" name="email" />
+          <ErrorMessage name="email" component="div" />
+
+          <label htmlFor="password">Password</label>
+          <Field type="password" id="password" name="password" />
+          <ErrorMessage name="password" component="div" />
+          <button type="submit">Log in</button>
         </Form>
       </Formik>
-      <Button variant="contained" onSubmit={handleSubmit}>
-        Log in.
-      </Button>
+
       {error && (
         <p>
-          Unfortunately, something wrong with registration. Please, try again!
+          Unfortunately, something went wrong within registration process.
+          Please, try again!
         </p>
       )}
-    </div>
+    </>
   );
 }

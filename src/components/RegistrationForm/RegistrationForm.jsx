@@ -1,6 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-// import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/auth/operationsAuth";
 import { selectIsError } from "../../redux/auth/selectorsAuth";
@@ -27,7 +26,6 @@ export default function RegisterForm() {
     dispatch(registerUser(values));
     resetForm();
   };
-
   return (
     <>
       <Formik
@@ -50,7 +48,6 @@ export default function RegisterForm() {
           <button type="submit">Register</button>
         </Form>
       </Formik>
-      {/* <Button variant="contained">Register</Button> */}
       {error && (
         <p>
           Unfortunately, something went wrong within registration process.
