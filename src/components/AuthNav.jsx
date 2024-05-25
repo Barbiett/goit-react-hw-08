@@ -1,10 +1,19 @@
 import { NavLink } from "react-router-dom";
-
+import Button from "@mui/material/Button";
 export default function AuthNav() {
   return (
-    <div>
-      <NavLink to="/register">Registeration</NavLink>
-      <NavLink to="/login">Log In</NavLink>
+    <div
+    // style={{
+    //   display: "flex",
+    //   justifyContent: "center",
+    // }}
+    >
+      <NavLink to="/register">
+        <Button variant="contained">Registeration</Button>
+      </NavLink>
+      <NavLink to="/login">
+        <Button variant="contained">Log In</Button>
+      </NavLink>
     </div>
   );
 }

@@ -1,0 +1,29 @@
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid grey;
+  border-radius: 20px;
+  margin: 30px auto;
+}
+
+.header {
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.paragraph {
+  font-size: 30px;
+}
+
+.emailLink {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.emailLink:hover {
+  text-decoration: underline;
+}

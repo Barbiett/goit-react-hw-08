@@ -36,6 +36,7 @@ export default function RegisterForm() {
         <Form autoComplete="off">
           <label htmlFor="name">Username</label>
           <Field type="text" id="name" name="name" />
+          {/* <TextField type="text" id="name" name="name" variant="outlined" /> */}
           <ErrorMessage name="name" component="div" />
 
           <label htmlFor="email">Email</label>

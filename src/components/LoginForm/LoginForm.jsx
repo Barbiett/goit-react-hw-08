@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { authorizationUser } from "../../redux/auth/operationsAuth";
 import { selectIsError } from "../../redux/auth/selectorsAuth";
+import css from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
@@ -31,22 +32,40 @@ export default function LoginForm() {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form>
-          <label htmlFor="email">Email</label>
-          <Field type="email" id="email" name="email" />
-          <ErrorMessage name="email" component="div" />
+        <Form className={css.form}>
+          <label htmlFor="email" className={css.label}>
+            Email
+          </label>
+          <Field
+            type="email"
+            id="email"
+            name="email"
+            className={css.formInput}
+          />
+          <ErrorMessage name="email" component="div" className={css.errMsg} />
 
-          <label htmlFor="password">Password</label>
-          <Field type="password" id="password" name="password" />
-          <ErrorMessage name="password" component="div" />
+          <label htmlFor="password" className={css.label}>
+            Password
+          </label>
+          <Field
+            type="password"
+            id="password"
+            name="password"
+            className={css.formInput}
+          />
+          <ErrorMessage
+            name="password"
+            component="div"
+            className={css.errMsg}
+          />
           <button type="submit">Log in</button>
         </Form>
       </Formik>
 
       {error && (
         <p>
-          Unfortunately, something went wrong within registration process.
-          Please, try again!
+          Unfortunately, something went wrong within log in process. Please, try
+          again!
         </p>
       )}
     </>

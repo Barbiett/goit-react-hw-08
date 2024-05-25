@@ -1,32 +1,27 @@
 import { Form, Formik, Field } from "formik";
 import { useId } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   changeFilter,
-  selectNameFilter,
+  selectFilter,
 } from "../../redux/filters/filtersSlice.js";
 import css from "./SearchBox.module.css";
 
 export default function SearchBox() {
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
-  const value = useSelector(selectNameFilter);
-  const userNameIdSearcBox = useId();
+  const inputId = useId();
 
   return (
-    <Formik
-      initialValues={{
-        username: "",
-      }}
-    >
+    <Formik initialValues={{ filter: "" }} onSubmit={() => {}}>
       <Form>
         <div className={css.form}>
-          <label htmlFor={userNameIdSearcBox}>Find contacts by name</label>
+          <label htmlFor={inputId}>Find contacts by name or number</label>
           <Field
             className={css.field}
-            name="username"
-            id={userNameIdSearcBox}
-            value={value}
+            name="filter"
+            id={inputId}
+            value={filter}
             onChange={(e) => dispatch(changeFilter(e.target.value))}
           ></Field>
         </div>
