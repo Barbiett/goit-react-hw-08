@@ -1,14 +1,16 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Loader from "../Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { authorizationUser } from "../../redux/auth/operationsAuth";
-import { selectIsError } from "../../redux/auth/selectorsAuth";
+import { selectIsError, selectIsLoading } from "../../redux/auth/selectorsAuth";
 
 import css from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
-  const error = useSelector(selectIsError);
+  const errorLogin = useSelector(selectIsError);
+  const isLoading = useSelector(selectIsLoading);
 
   const initialValues = {
     email: "",
@@ -62,7 +64,7 @@ export default function LoginForm() {
           <button className={css.button} type="submit">
             Log in
           </button>
-          {error && (
+          {errorLogin && (
             <p className={css.p}>
               Unfortunately, something went wrong with log in process. Please,
               try again!
@@ -70,6 +72,7 @@ export default function LoginForm() {
           )}
         </Form>
       </Formik>
+      {isLoading && <Loader />}
     </>
   );
 }

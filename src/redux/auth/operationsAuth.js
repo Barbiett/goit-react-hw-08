@@ -56,9 +56,7 @@ export const getCurrentInfoOfUser = createAsyncThunk(
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
     if (persistedToken === null) {
-      return thunkAPI.rejectWithValue(
-        "Unable to get current information of user"
-      );
+      return thunkAPI.rejectWithValue(null);
     }
     setAuthHeader(persistedToken);
     try {

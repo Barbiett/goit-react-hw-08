@@ -11,11 +11,6 @@ const handlePending = (state) => {
   state.error = null;
 };
 
-const handleRejected = (state, action) => {
-  state.loading = false;
-  state.error = action.payload;
-};
-
 const slice = createSlice({
   name: "auth",
   initialState: {
@@ -25,6 +20,8 @@ const slice = createSlice({
     },
     loading: false,
     error: null,
+    // errorRegister: null,
+    // errorAuthorization: null,
     token: null,
     isLoggedIn: false,
     isRefreshing: false,
@@ -38,18 +35,24 @@ const slice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
-        state.error = null;
       })
-      .addCase(registerUser.rejected, handleRejected)
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        // state.errorRegister = action.payload;
+      })
       .addCase(authorizationUser.pending, handlePending)
       .addCase(authorizationUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
-        state.error = null;
       })
-      .addCase(authorizationUser.rejected, handleRejected)
+      .addCase(authorizationUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        // state.errorAuthorization = action.payload;
+      })
       .addCase(logOutUser.pending, handlePending)
       .addCase(logOutUser.fulfilled, (state) => {
         state.loading = false;
@@ -59,20 +62,20 @@ const slice = createSlice({
         };
         state.token = null;
         state.isLoggedIn = false;
-        state.error = null;
       })
-      .addCase(logOutUser.rejected, handleRejected)
+      .addCase(logOutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(getCurrentInfoOfUser.pending, (state) => {
         state.loading = true;
         state.isRefreshing = true;
-        state.error = null;
       })
       .addCase(getCurrentInfoOfUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
         state.isRefreshing = false;
         state.isLoggedIn = true;
-        state.error = null;
       })
       .addCase(getCurrentInfoOfUser.rejected, (state, action) => {
         state.loading = false;

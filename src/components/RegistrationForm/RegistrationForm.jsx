@@ -1,13 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Loader from "../Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/auth/operationsAuth";
-import { selectIsError } from "../../redux/auth/selectorsAuth";
+import { selectIsError, selectIsLoading } from "../../redux/auth/selectorsAuth";
 import css from "../LoginForm/LoginForm.module.css";
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
-  const error = useSelector(selectIsError);
+  const errorRegistration = useSelector(selectIsError);
+  const isLoading = useSelector(selectIsLoading);
 
   const initialValues = {
     name: "",
@@ -68,7 +70,7 @@ export default function RegisterForm() {
           <button className={css.button} type="submit">
             Register
           </button>
-          {error && (
+          {errorRegistration && (
             <p className={css.p}>
               Unfortunately, something went wrong with registration process.
               Please, try again!
@@ -76,6 +78,7 @@ export default function RegisterForm() {
           )}
         </Form>
       </Formik>
+      {isLoading && <Loader />}
     </>
   );
 }
