@@ -62,14 +62,14 @@ export default function LoginForm() {
           <button className={css.button} type="submit">
             Log in
           </button>
+          {error && (
+            <p className={css.p}>
+              Unfortunately, something went wrong with log in process. Please,
+              try again!
+            </p>
+          )}
         </Form>
       </Formik>
-      {error && (
-        <p className={css.p}>
-          Unfortunately, something went wrong with log in process. Please, try
-          again!
-        </p>
-      )}
     </>
   );
 }
