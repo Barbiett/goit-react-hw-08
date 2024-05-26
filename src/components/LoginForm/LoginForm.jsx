@@ -3,13 +3,16 @@ import * as Yup from "yup";
 import Loader from "../Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { authorizationUser } from "../../redux/auth/operationsAuth";
-import { selectIsLoading, selectIsError } from "../../redux/auth/selectorsAuth";
+import {
+  selectIsLoading,
+  selectIsErrorAuthorization,
+} from "../../redux/auth/selectorsAuth";
 
 import css from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
-  const errorLogin = useSelector(selectIsError);
+  const errorLogin = useSelector(selectIsErrorAuthorization);
   const isLoading = useSelector(selectIsLoading);
 
   const initialValues = {

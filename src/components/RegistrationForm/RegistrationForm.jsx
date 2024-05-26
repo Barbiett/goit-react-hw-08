@@ -3,12 +3,15 @@ import * as Yup from "yup";
 import Loader from "../Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/auth/operationsAuth";
-import { selectIsError, selectIsLoading } from "../../redux/auth/selectorsAuth";
+import {
+  selectIsErrorRegister,
+  selectIsLoading,
+} from "../../redux/auth/selectorsAuth";
 import css from "../LoginForm/LoginForm.module.css";
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
-  const errorRegistration = useSelector(selectIsError);
+  const errorRegistration = useSelector(selectIsErrorRegister);
   const isLoading = useSelector(selectIsLoading);
 
   const initialValues = {

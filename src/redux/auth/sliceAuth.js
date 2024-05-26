@@ -15,8 +15,8 @@ const slice = createSlice({
     },
     loading: false,
     error: null,
-    // errorRegister: null,
-    // errorAuthorization: null,
+    errorRegister: null,
+    errorAuthorization: null,
     token: null,
     isLoggedIn: false,
     isRefreshing: false,
@@ -37,8 +37,7 @@ const slice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
-        // state.errorRegister = action.payload;
+        state.errorRegister = action.payload;
       })
       .addCase(authorizationUser.pending, (state) => {
         state.loading = true;
@@ -54,8 +53,7 @@ const slice = createSlice({
       })
       .addCase(authorizationUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
-        // state.errorAuthorization = action.payload;
+        state.errorAuthorization = action.payload;
       })
       .addCase(logOutUser.pending, (state) => {
         state.loading = true;
@@ -89,7 +87,7 @@ const slice = createSlice({
       })
       .addCase(getCurrentInfoOfUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.erЁror = action.payload;
         state.isRefreshing = false;
         state.token = null;
         state.isLoggedIn = false;
