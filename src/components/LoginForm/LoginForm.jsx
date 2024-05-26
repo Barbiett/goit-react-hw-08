@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import Loader from "../Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { authorizationUser } from "../../redux/auth/operationsAuth";
-import { selectIsError, selectIsLoading } from "../../redux/auth/selectorsAuth";
+import { selectIsLoading, selectIsError } from "../../redux/auth/selectorsAuth";
 
 import css from "./LoginForm.module.css";
 
@@ -26,6 +26,7 @@ export default function LoginForm() {
 
   const handleSubmit = (values, { resetForm }) => {
     dispatch(authorizationUser(values));
+
     resetForm();
   };
 
