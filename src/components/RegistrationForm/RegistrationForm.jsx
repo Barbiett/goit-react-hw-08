@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/auth/operationsAuth";
 import { selectIsError } from "../../redux/auth/selectorsAuth";
+import css from "../LoginForm/LoginForm.module.css";
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
@@ -33,28 +34,48 @@ export default function RegisterForm() {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form autoComplete="off">
-          <label htmlFor="name">Username</label>
-          <Field type="text" id="name" name="name" />
-          {/* <TextField type="text" id="name" name="name" variant="outlined" /> */}
-          <ErrorMessage name="name" component="div" />
-
-          <label htmlFor="email">Email</label>
-          <Field type="email" id="email" name="email" />
-          <ErrorMessage name="email" component="div" />
-
-          <label htmlFor="password">Password</label>
-          <Field type="password" id="password" name="password" />
-          <ErrorMessage name="password" component="div" />
-          <button type="submit">Register</button>
+        <Form className={css.form}>
+          <div className={css.formEl}>
+            <label htmlFor="name" className={css.label}>
+              Username
+            </label>
+            <Field type="text" id="name" name="name" className={css.field} />
+            <ErrorMessage name="name" component="div" className={css.errMsg} />
+          </div>
+          <div className={css.formEl}>
+            <label htmlFor="email" className={css.label}>
+              Email
+            </label>
+            <Field type="email" id="email" name="email" className={css.field} />
+            <ErrorMessage name="email" component="div" className={css.errMsg} />
+          </div>
+          <div className={css.formEl}>
+            <label htmlFor="password" className={css.label}>
+              Password
+            </label>
+            <Field
+              type="password"
+              id="password"
+              name="password"
+              className={css.field}
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className={css.errMsg}
+            />
+          </div>
+          <button className={css.button} type="submit">
+            Register
+          </button>
+          {error && (
+            <p className={css.p}>
+              Unfortunately, something went wrong with registration process.
+              Please, try again!
+            </p>
+          )}
         </Form>
       </Formik>
-      {error && (
-        <p>
-          Unfortunately, something went wrong within registration process.
-          Please, try again!
-        </p>
-      )}
     </>
   );
 }

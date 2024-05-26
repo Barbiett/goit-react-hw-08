@@ -5,6 +5,8 @@ import { addContact } from "../../redux/contacts/operationsContacts";
 import { useDispatch } from "react-redux";
 import css from "./ContactForm.module.css";
 import * as Yup from "yup";
+import toast, { Toaster } from "react-hot-toast";
+
 const UserSchema = Yup.object().shape({
   username: Yup.string()
     .trim()
@@ -30,51 +32,75 @@ export default function ContactForm() {
       id: nanoid(),
     };
 
-    dispatch(addContact(newContact));
+    dispatch(addContact(newContact))
+      .unwrap()
+      .then(() => {
+        toast.success("Successfully added!", {
+          style: {
+            backgroundColor: "white",
+            color: "black",
+          },
+        });
+      })
+      .catch((error) => {
+        toast.error(`Failed to add contact: ${error.message}`, {
+          style: {
+            backgroundColor: "white",
+            color: "black",
+          },
+        });
+      });
     actions.resetForm();
   }
 
   return (
-    <Formik
-      initialValues={{
-        username: "",
-        usernumber: "",
-      }}
-      validationSchema={UserSchema}
-      onSubmit={handleSubmit}
-    >
-      <Form>
-        <div className={css.input}>
-          <label className={css.label} htmlFor={userNameId}>
-            Name
-          </label>
-          <Field className={css.field} name="username" id={userNameId}></Field>
-          <ErrorMessage
-            className={css.error}
-            name="username"
-            component="span"
-          />
-        </div>
-        <div className={css.input}>
-          <label className={css.label} htmlFor={userNamumberId}>
-            Number
-          </label>
-          <Field
-            className={css.field}
-            name="usernumber"
-            type="number"
-            id={userNamumberId}
-          ></Field>
-          <ErrorMessage
-            className={css.error}
-            name="usernumber"
-            component="span"
-          />
-        </div>
-        <button className={css.button} type="submit">
-          Add contact
-        </button>
-      </Form>
-    </Formik>
+    <>
+      <Toaster />
+      <Formik
+        initialValues={{
+          username: "",
+          usernumber: "",
+        }}
+        validationSchema={UserSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <div className={css.input}>
+            <label className={css.label} htmlFor={userNameId}>
+              Name
+            </label>
+            <Field
+              className={css.field}
+              name="username"
+              id={userNameId}
+            ></Field>
+            <ErrorMessage
+              className={css.error}
+              name="username"
+              component="span"
+            />
+          </div>
+          <div className={css.input}>
+            <label className={css.label} htmlFor={userNamumberId}>
+              Number
+            </label>
+            <Field
+              className={css.field}
+              name="usernumber"
+              type="number"
+              id={userNamumberId}
+            ></Field>
+            <ErrorMessage
+              className={css.error}
+              name="usernumber"
+              component="span"
+            />
+          </div>
+          <button className={css.button} type="submit">
+            Add contact
+          </button>
+        </Form>
+      </Formik>
+    </>
   );
 }

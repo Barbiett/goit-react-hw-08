@@ -1,7 +1,7 @@
 import ContactForm from "../../components/ContactForm/ContactForm";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import ContactList from "../../components/ContactList/ContactList";
-
+import Loader from "../../components/Loader";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContacts } from "../../redux/contacts/operationsContacts";
@@ -20,17 +20,19 @@ export default function ContactsPage() {
     dispatch(fetchContacts());
   }, [dispatch]);
   return (
-    <div className={css.container}>
-      <div className={css.box}>
-        <div>
-          <h1 className={css.header}>Phonebook</h1>
-          <ContactForm />
-          <SearchBox />
+    <div>
+      {loading && <Loader />}
+      <div className={css.container}>
+        <div className={css.box}>
+          <div>
+            <h1 className={css.header}>Phonebook</h1>
+            <ContactForm />
+            <SearchBox />
+          </div>
         </div>
+        <ContactList />
       </div>
-      {loading && <p>Loading...</p>}
       {error && <p>Opps! Error!{error.message}. Try reloading the page!</p>}
-      <ContactList />
     </div>
   );
 }

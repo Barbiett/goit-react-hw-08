@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { authorizationUser } from "../../redux/auth/operationsAuth";
 import { selectIsError } from "../../redux/auth/selectorsAuth";
+
 import css from "./LoginForm.module.css";
 
 export default function LoginForm() {
@@ -25,6 +26,7 @@ export default function LoginForm() {
     dispatch(authorizationUser(values));
     resetForm();
   };
+
   return (
     <>
       <Formik
@@ -33,38 +35,38 @@ export default function LoginForm() {
         onSubmit={handleSubmit}
       >
         <Form className={css.form}>
-          <label htmlFor="email" className={css.label}>
-            Email
-          </label>
-          <Field
-            type="email"
-            id="email"
-            name="email"
-            className={css.formInput}
-          />
-          <ErrorMessage name="email" component="div" className={css.errMsg} />
+          <div className={css.formEl}>
+            <label htmlFor="email" className={css.label}>
+              Email
+            </label>
+            <Field type="email" id="email" name="email" className={css.field} />
+            <ErrorMessage name="email" component="div" className={css.errMsg} />
+          </div>
+          <div className={css.formEl}>
+            <label htmlFor="password" className={css.label}>
+              Password
+            </label>
+            <Field
+              type="password"
+              id="password"
+              name="password"
+              className={css.field}
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className={css.errMsg}
+            />
+          </div>
 
-          <label htmlFor="password" className={css.label}>
-            Password
-          </label>
-          <Field
-            type="password"
-            id="password"
-            name="password"
-            className={css.formInput}
-          />
-          <ErrorMessage
-            name="password"
-            component="div"
-            className={css.errMsg}
-          />
-          <button type="submit">Log in</button>
+          <button className={css.button} type="submit">
+            Log in
+          </button>
         </Form>
       </Formik>
-
       {error && (
-        <p>
-          Unfortunately, something went wrong within log in process. Please, try
+        <p className={css.p}>
+          Unfortunately, something went wrong with log in process. Please, try
           again!
         </p>
       )}

@@ -3,10 +3,12 @@ import Button from "@mui/material/Button";
 export default function AuthNav() {
   return (
     <div
-    // style={{
-    //   display: "flex",
-    //   justifyContent: "center",
-    // }}
+      style={{
+        display: "flex",
+        gap: "30px",
+        justifyContent: "center",
+        paddingBottom: "20px",
+      }}
     >
       <NavLink to="/register">
         <Button variant="contained">Registeration</Button>

@@ -8,6 +8,7 @@ import {
 
 const handlePending = (state) => {
   state.loading = true;
+  state.error = null;
 };
 
 const handleRejected = (state, action) => {
@@ -28,6 +29,7 @@ const slice = createSlice({
     isLoggedIn: false,
     isRefreshing: false,
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, handlePending)
@@ -36,6 +38,7 @@ const slice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.error = null;
       })
       .addCase(registerUser.rejected, handleRejected)
       .addCase(authorizationUser.pending, handlePending)
@@ -44,6 +47,7 @@ const slice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.error = null;
       })
       .addCase(authorizationUser.rejected, handleRejected)
       .addCase(logOutUser.pending, handlePending)
@@ -55,17 +59,20 @@ const slice = createSlice({
         };
         state.token = null;
         state.isLoggedIn = false;
+        state.error = null;
       })
       .addCase(logOutUser.rejected, handleRejected)
       .addCase(getCurrentInfoOfUser.pending, (state) => {
         state.loading = true;
         state.isRefreshing = true;
+        state.error = null;
       })
       .addCase(getCurrentInfoOfUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
         state.isRefreshing = false;
         state.isLoggedIn = true;
+        state.error = null;
       })
       .addCase(getCurrentInfoOfUser.rejected, (state, action) => {
         state.loading = false;
