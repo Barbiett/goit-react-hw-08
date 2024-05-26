@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../../redux/auth/selectorsAuth";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import Button from "@mui/material/Button";
 
 export default function Navigation() {

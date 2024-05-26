@@ -2,11 +2,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Loader from "../Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/auth/operationsAuth";
+import { registerUser } from "../../redux/auth/operations.js";
 import {
   selectIsErrorRegister,
   selectIsLoading,
-} from "../../redux/auth/selectorsAuth";
+} from "../../redux/auth/selectors.js";
 import css from "../LoginForm/LoginForm.module.css";
 
 export default function RegisterForm() {

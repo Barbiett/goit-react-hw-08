@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { logOutUser } from "../../redux/auth/operationsAuth";
-import { selectUser } from "../../redux/auth/selectorsAuth";
+import { logOutUser } from "../../redux/auth/operations";
+import { selectUser } from "../../redux/auth/selectors";
 import Button from "@mui/material/Button";
 import css from "./UserMenu.module.css";
 

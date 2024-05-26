@@ -4,7 +4,7 @@ import {
   authorizationUser,
   logOutUser,
   getCurrentInfoOfUser,
-} from "./operationsAuth";
+} from "./operations";
 
 const slice = createSlice({
   name: "auth",

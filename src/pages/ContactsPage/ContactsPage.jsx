@@ -4,11 +4,8 @@ import ContactList from "../../components/ContactList/ContactList";
 import Loader from "../../components/Loader";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContacts } from "../../redux/contacts/operationsContacts";
-import {
-  selectIsError,
-  selectIsLoading,
-} from "../../redux/contacts/selectorsContacts";
+import { fetchContacts } from "../../redux/contacts/operations";
+import { selectIsError, selectIsLoading } from "../../redux/contacts/selectors";
 
 import css from "./ContactsPage.module.css";
 
