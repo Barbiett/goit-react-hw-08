@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchContacts, addContact, deleteContact } from "./operations";
+import { logOutUser } from "../auth/operations";
 
 const handlePending = (state) => {
   state.loading = true;
@@ -16,8 +17,8 @@ const slice = createSlice({
     loading: false,
     error: null,
   },
-  extraReducers: (bilder) => {
-    bilder
+  extraReducers: (builder) => {
+    builder
       .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.loading = false;
@@ -37,8 +38,14 @@ const slice = createSlice({
           (item) => item.id !== action.payload.id
         );
       })
-      .addCase(deleteContact.rejected, handleRejected);
+      .addCase(deleteContact.rejected, handleRejected)
+      .addCase(logOutUser.fulfilled, (state) => {
+        state.loading = false;
+        // state.items = [];
+      });
   },
 });
 const contactsReducer = slice.reducer;
 export default contactsReducer;
+
+// Вимога передбачала необхідність реалізації addCase для logOut.fulfilled, щоб очистити контакти, якої бракує у вашій реалізації.

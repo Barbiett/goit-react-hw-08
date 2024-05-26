@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Loader from "../Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { authorizationUser } from "../../redux/auth/operations";
+import { loginUser } from "../../redux/auth/operations";
 import {
   selectIsLoading,
   selectIsErrorAuthorization,
@@ -28,7 +28,7 @@ export default function LoginForm() {
   });
 
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(authorizationUser(values));
+    dispatch(loginUser(values));
 
     resetForm();
   };
