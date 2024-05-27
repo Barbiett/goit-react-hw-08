@@ -41,7 +41,7 @@ const slice = createSlice({
       .addCase(deleteContact.rejected, handleRejected)
       .addCase(logOutUser.fulfilled, (state) => {
         state.loading = false;
-        // state.items = [];
+        state.items = [];
       });
   },
 });
